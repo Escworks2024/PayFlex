@@ -3,472 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Only Fun - Home</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.0/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.0/dist/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-wallets/dist/umd/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base/dist/umd/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react/dist/umd/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react-ui/dist/umd/index.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider"></script>
+    <title>TransFi - Converti Crypto in Fiat in Sicurezza</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            line-height: 1.6;
-            background-color: #f4f7fa;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-
+        body {
+            color: #333;
+            background-color: #f4f4f4;
+        }
         header {
-            background-color: rgba(34, 34, 34, 0.8);
-            padding: 1rem 2rem;
-            color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background 0.3s ease;
-            backdrop-filter: blur(10px);
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #fff;
         }
-
-        header.scrolled {
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-
         .logo {
             display: flex;
             align-items: center;
         }
-
         .logo img {
-            height: 50px;
+            width: 40px;
             margin-right: 10px;
         }
-
-        .logo span {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .logo span:nth-child(2) {
-            color: #3AC4B2;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #3AC4B2;
-        }
-
-        .cta-button {
-            padding: 0.7rem 1.5rem;
-            color: #222;
-            background-color: #3AC4B2;
-            border: none;
+        .language-switch img {
+            width: 30px;
+            margin-left: 10px;
             cursor: pointer;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: background 0.2s, transform 0.3s, box-shadow 0.3s;
         }
-
-        .cta-button:hover {
-            background-color: #36B1A2;
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
         .hero {
-            text-align: center;
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, #3AC4B2, #2F3C4F);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            background-color: #333;
             color: #fff;
-            position: relative;
-            overflow: hidden;
         }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            height: 100%;
-            background: url('https://i.imgur.com/1MH9wu2.jpeg') no-repeat center;
-            background-size: cover;
-            opacity: 0.2;
-            z-index: -1;
+        .hero-content h2 {
+            font-size: 2.5em;
         }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
+        .hero-content p {
+            margin: 20px 0;
         }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero-button {
-            padding: 1rem 2rem;
-            margin-top: 2rem;
-            background-color: #fff;
-            color: #3AC4B2;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: background 0.2s, transform 0.3s, box-shadow 0.3s;
-        }
-
-        .hero-button:hover {
-            background-color: #36B1A2;
-            color: #fff;
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        section {
-            padding: 4rem 2rem;
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        section h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: #3AC4B2;
-        }
-
-        .about, .token {
-            background-color: #fefefe;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin: 4rem auto;
-            padding: 3rem;
-            max-width: 1000px;
-        }
-
-        .about img, .token img {
+        .hero-video video {
             width: 100%;
             max-width: 500px;
-            margin: 2rem auto;
             border-radius: 10px;
-            loading: lazy;
         }
-
-        .roadmap, .tokenomics {
-            background-color: #f9f9f9;
-            padding: 3rem;
-            border-radius: 15px;
-            margin-top: 4rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .roadmap ul {
-            list-style: none;
-            text-align: left;
-            margin-top: 2rem;
-        }
-
-        .roadmap ul li {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .roadmap ul li::before {
-            content: "\2022";
-            color: #3AC4B2;
-            font-weight: bold;
-            display: inline-block;
-            width: 1rem;
-            margin-left: -1.5rem;
-        }
-
-        .interactive-video {
-            margin-top: 4rem;
-            max-width: 800px;
-            margin: 4rem auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-
-        .interactive-video:hover {
-            transform: scale(1.02);
-        }
-
-        .join-button {
-            padding: 1rem 2rem;
-            background-color: #3AC4B2;
-            color: #fff;
+        .cta-button {
+            background-color: #4CAF50;
+            color: white;
             border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
             cursor: pointer;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: background 0.2s, transform 0.3s, box-shadow 0.3s;
+            border-radius: 5px;
         }
-
-        .join-button:hover {
-            background-color: #36B1A2;
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        footer {
+        .features {
+            padding: 50px;
+            background-color: #fff;
             text-align: center;
-            padding: 4rem;
-            background-color: #222;
+        }
+        .feature-cards {
+            display: flex;
+            justify-content: space-around;
+        }
+        .feature-card {
+            width: 30%;
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .roadmap {
+            padding: 50px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        footer {
+            background-color: #1a1a1a;
             color: #fff;
-            font-size: 1.2rem;
-        }
-
-        footer p {
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: #3AC4B2;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        footer a:hover {
-            color: #fff;
+            text-align: center;
+            padding: 15px 0;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+
+    <!-- Navbar -->
     <header>
-        <nav class="container-fluid d-flex align-items-center justify-content-between">
+        <div class="navbar">
             <div class="logo">
-                <img src="https://i.imgur.com/1MH9wu2.jpeg" alt="Only Fun Logo">
-                <span>Only<span style="color: #3AC4B2;">Fun</span></span>
+                <img src="logo.png" alt="TransFi Logo">
+                <h1>TransFi</h1>
             </div>
-            <ul class="nav-links d-flex align-items-center">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#token" class="nav-link">The FUN Token</a></li>
-                <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
-                <li><a href="#tokenomics" class="nav-link">Tokenomics</a></li>
-                <li><a href="#join" class="nav-link">Join Us</a></li>
-            </ul>
-            <button class="cta-button" onclick="connectWallet()">Connect Wallet</button>
-        </nav>
+            <div class="language-switch">
+                <img src="italy-flag.png" alt="Italian" id="italian" onclick="switchLanguage('it')">
+                <img src="uk-flag.png" alt="English" id="english" onclick="switchLanguage('en')">
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Welcome to Only Fun</h1>
-        <p>The new platform where creators sell exclusive content with the power of the FUN Token.</p>
-        <a href="#join" class="hero-button">Join the Revolution</a>
+        <div class="hero-content">
+            <h2 id="hero-text">Converti le tue criptovalute in denaro reale con facilità e sicurezza</h2>
+            <p id="hero-subtext">Semplifica i tuoi pagamenti con la nostra piattaforma all'avanguardia che consente transazioni rapide e discrete in tutto il mondo.</p>
+            <button class="cta-button" onclick="scrollToSection('features')">Scopri di più</button>
+        </div>
+        <div class="hero-video">
+            <video autoplay muted loop>
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+        </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <h2>What is Only Fun?</h2>
-        <p>Only Fun empowers content creators to reach their audience directly and securely. Using the FUN Token, you can buy, sell, and access exclusive audio and video content.</p>
-        <img src="https://via.placeholder.com/500x300" alt="About Only Fun" loading="lazy">
-    </section>
-
-    <!-- Token Section -->
-    <section id="token" class="token">
-        <h2>The FUN Token</h2>
-        <p>Built on Solana, FUN Token enables fast and secure transactions between creators and fans. Join a decentralized economy where creators can thrive.</p>
-        <img src="https://via.placeholder.com/500x300" alt="The FUN Token" loading="lazy">
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h3 id="features-title">Come Funziona</h3>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <img src="icon1.png" alt="Step 1">
+                <h4 id="feature1-title">Invia USDT</h4>
+                <p id="feature1-desc">Trasferisci le tue criptovalute al nostro servizio con la massima sicurezza.</p>
+            </div>
+            <div class="feature-card">
+                <img src="icon2.png" alt="Step 2">
+                <h4 id="feature2-title">Conversione Fiat</h4>
+                <p id="feature2-desc">Noi gestiamo la conversione e inviamo il bonifico direttamente al destinatario.</p>
+            </div>
+            <div class="feature-card">
+                <img src="icon3.png" alt="Step 3">
+                <h4 id="feature3-title">Trasparenza Totale</h4>
+                <p id="feature3-desc">Operazioni rapide e tracciabili con una commissione trasparente.</p>
+            </div>
+        </div>
     </section>
 
     <!-- Roadmap Section -->
-    <section id="roadmap" class="roadmap">
-        <h2>Roadmap</h2>
-        <ul>
-            <li><strong>Phase 1 (1-3 months):</strong> Token prototyping and creation. Set up community channels on Telegram and Discord.</li>
-            <li><strong>Phase 2 (3-6 months):</strong> Community building, onboarding initial creators, marketing.</li>
-            <li><strong>Phase 3 (6-12 months):</strong> Launch of MVP platform, integration of FUN Token for transactions.</li>
-            <li><strong>Phase 4 (12+ months):</strong> Expansion with advanced features, including smart contracts and NFTs.</li>
-        </ul>
-    </section>
-
-    <!-- Tokenomics Section -->
-    <section id="tokenomics" class="tokenomics">
-        <h2>Tokenomics</h2>
-        <canvas id="tokenomicsChart" width="400" height="400"></canvas>
-    </section>
-
-    <!-- Join Section -->
-    <section id="join" class="join">
-        <h2>Get Started with Only Fun</h2>
-        <p>Ready to join Only Fun? Create an account and start sharing exclusive content today.</p>
-        <button class="join-button" onclick="joinAlert()">Sign Up</button>
-    </section>
-
-    <!-- Interactive Video Section -->
-    <section class="interactive-video">
-        <video controls width="100%" poster="https://via.placeholder.com/800x450">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+    <section class="roadmap">
+        <h3 id="roadmap-title">La Nostra Roadmap</h3>
+        <div class="roadmap-content">
+            <img src="roadmap-image.png" alt="Roadmap" id="roadmap-img">
+            <p id="roadmap-desc">Dai un'occhiata alle tappe principali che ci guideranno nel diventare la piattaforma di riferimento per il cambio cripto-fiat.</p>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Only Fun. All rights reserved.</p>
-        <p>Visit our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.</p>
+        <p>© 2024 TransFi - All rights reserved</p>
     </footer>
 
-    <!-- Bootstrap JS and Chart.js for Tokenomics -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // JavaScript function for the Join button
-        function joinAlert() {
-            alert('Sign-up functionality coming soon!');
-        }
-
-        // Tokenomics Chart Data
-        const tokenomicsData = {
-            labels: ["Marketing", "Development", "Community Incentives", "Liquidity", "Team"],
-            datasets: [{
-                label: 'Token Distribution',
-                data: [20, 30, 25, 15, 10], // Percentage distribution
-                backgroundColor: [
-                    '#4CAF50',
-                    '#2196F3',
-                    '#FF9800',
-                    '#FF5722',
-                    '#9C27B0'
-                ]
-            }]
-        };
-
-        // Render Tokenomics Chart
-        window.onload = function() {
-            const ctx = document.getElementById('tokenomicsChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'pie',
-                data: tokenomicsData,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        };
-
-        // Scroll Event for Header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+        // Language Switch
+        function switchLanguage(language) {
+            if (language === 'it') {
+                document.getElementById("hero-text").textContent = "Converti le tue criptovalute in denaro reale con facilità e sicurezza";
+                document.getElementById("hero-subtext").textContent = "Semplifica i tuoi pagamenti con la nostra piattaforma all'avanguardia che consente transazioni rapide e discrete in tutto il mondo.";
+                document.getElementById("features-title").textContent = "Come Funziona";
+                document.getElementById("feature1-title").textContent = "Invia USDT";
+                document.getElementById("feature1-desc").textContent = "Trasferisci le tue criptovalute al nostro servizio con la massima sicurezza.";
+                document.getElementById("feature2-title").textContent = "Conversione Fiat";
+                document.getElementById("feature2-desc").textContent = "Noi gestiamo la conversione e inviamo il bonifico direttamente al destinatario.";
+                document.getElementById("feature3-title").textContent = "Trasparenza Totale";
+                document.getElementById("feature3-desc").textContent = "Operazioni rapide e tracciabili con una commissione trasparente.";
+                document.getElementById("roadmap-title").textContent = "La Nostra Roadmap";
+                document.getElementById("roadmap-desc").textContent = "Dai un'occhiata alle tappe principali che ci guideranno nel diventare la piattaforma di riferimento per il cambio cripto-fiat.";
+            } else if (language === 'en') {
+                document.getElementById("hero-text").textContent = "Convert your crypto into real money with ease and security";
+                document.getElementById("hero-subtext").textContent = "Simplify your payments with our advanced platform enabling fast and discreet transactions worldwide.";
+                document.getElementById("features-title").textContent = "How It Works";
+                document.getElementById("feature1-title").textContent = "Send USDT";
+                document.getElementById("feature1-desc").textContent = "Transfer your crypto assets to our service with maximum security.";
+                document.getElementById("feature2-title").textContent = "Fiat Conversion";
+                document.getElementById("feature2-desc").textContent = "We handle the conversion and send the wire transfer directly to the recipient.";
+                document.getElementById("feature3-title").textContent = "Total Transparency";
+                document.getElementById("feature3-desc").textContent = "Quick and trackable operations with a transparent fee.";
+                document.getElementById("roadmap-title").textContent = "Our Roadmap";
+                document.getElementById("roadmap-desc").textContent = "Take a look at the main milestones that will guide us to becoming the leading crypto-fiat exchange platform.";
             }
-        });
-
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.from(".hero h1", { duration: 1.5, y: -100, opacity: 0, ease: "bounce.out" });
-        gsap.from(".hero p", { duration: 1.5, delay: 0.5, y: 100, opacity: 0, ease: "power2.out" });
-        gsap.from(".hero-button", { duration: 1.5, delay: 1, scale: 0, ease: "elastic.out(1, 0.3)" });
-        gsap.from("section", {
-            scrollTrigger: {
-                trigger: "section",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            duration: 1.5,
-            y: 100,
-            opacity: 0,
-            stagger: 0.3,
-            ease: "power2.out"
-        });
-
-        gsap.from(".about img", {
-            scrollTrigger: {
-                trigger: ".about",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            duration: 1.5,
-            scale: 0.8,
-            opacity: 0,
-            ease: "power3.out"
-        });
-
-        gsap.from(".token img", {
-            scrollTrigger: {
-                trigger: ".token",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            duration: 1.5,
-            x: -100,
-            opacity: 0,
-            ease: "power3.out"
-        });
-
-        gsap.from(".roadmap ul li", {
-            scrollTrigger: {
-                trigger: ".roadmap",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            duration: 1,
-            x: -50,
-            opacity: 0,
-            stagger: 0.2,
-            ease: "power2.out"
-        });
-
-        gsap.from(".interactive-video", {
-            scrollTrigger: {
-                trigger: ".interactive-video",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            duration: 1.5,
-            y: 100,
-            opacity: 0,
-            ease: "power2.out"
-        });
+        }
+        // Smooth Scroll
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
+
 </body>
 </html>
