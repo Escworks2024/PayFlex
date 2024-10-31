@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PayFlex - Converti Crypto in Fiat in Sicurezza</title>
     <style>
-      
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +14,8 @@
         body {
             color: #333;
             background-color: #f4f4f4;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
         header {
             display: flex;
@@ -23,6 +24,10 @@
             padding: 20px;
             background-color: #1a1a1a;
             color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         .logo {
             display: flex;
@@ -36,6 +41,10 @@
             width: 30px;
             margin-left: 10px;
             cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .language-switch img:hover {
+            transform: scale(1.2);
         }
         .hero {
             display: flex;
@@ -44,17 +53,20 @@
             padding: 50px;
             background-color: #333;
             color: #fff;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .hero-content h2 {
             font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
         }
-        .hero-content p {
-            margin: 20px 0;
-        }
-        .hero-video video {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 10px;
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         .cta-button {
             background-color: #4CAF50;
@@ -64,6 +76,12 @@
             font-size: 1.2em;
             cursor: pointer;
             border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #3d8c40;
+            transform: scale(1.05);
         }
         .features {
             padding: 50px;
@@ -73,23 +91,54 @@
         .feature-cards {
             display: flex;
             justify-content: space-around;
+            gap: 20px;
         }
         .feature-card {
             width: 30%;
-            background-color: #e0e0e0;
+            background-color: #fff;
             padding: 20px;
             border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .feature-card img {
+            width: 50%;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        .feature-card:hover img {
+            transform: scale(1.1);
         }
         .roadmap {
             padding: 50px;
             background-color: #f4f4f4;
             text-align: center;
         }
+        #roadmap-img {
+            width: 40%;
+            transition: transform 0.3s;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        #roadmap-img:hover {
+            transform: scale(1.05);
+        }
         footer {
             background-color: #1a1a1a;
             color: #fff;
             text-align: center;
             padding: 15px 0;
+            position: relative;
+        }
+        footer p {
+            font-size: 0.9em;
+            color: #aaa;
         }
     </style>
 </head>
@@ -99,7 +148,7 @@
     <header>
         <div class="navbar">
             <div class="logo">
-                <img src="https://i.imgur.com/WS3GBwJ.png" alt="TransFi Logo">
+                <img src="https://i.imgur.com/WS3GBwJ.png" alt="PayFlex Logo">
                 <h1>PayFlex</h1>
             </div>
             <div class="language-switch">
@@ -124,41 +173,39 @@
     </section>
 
     <!-- Features Section -->
- <section class="features" id="features">
-    <h3 id="features-title">Come Funziona</h3>
-    <div class="feature-cards">
-        <div class="feature-card">
-            <img src="https://i.imgur.com/NKFZkpM.png" alt="Step 1" style="width: 50%;">
-            <h4 id="feature1-title">Invia USDT</h4>
-            <p id="feature1-desc">Trasferisci le tue criptovalute al nostro servizio con la massima sicurezza.</p>
+    <section class="features" id="features">
+        <h3 id="features-title">Come Funziona</h3>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <img src="https://i.imgur.com/NKFZkpM.png" alt="Step 1">
+                <h4 id="feature1-title">Invia USDT</h4>
+                <p id="feature1-desc">Trasferisci le tue criptovalute al nostro servizio con la massima sicurezza.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://i.imgur.com/JbOrirb.png" alt="Step 2">
+                <h4 id="feature2-title">Conversione Fiat</h4>
+                <p id="feature2-desc">Noi gestiamo la conversione e inviamo il bonifico direttamente al destinatario.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://i.imgur.com/vceCurS.png" alt="Step 3">
+                <h4 id="feature3-title">Trasparenza Totale</h4>
+                <p id="feature3-desc">Operazioni rapide e tracciabili con una commissione trasparente.</p>
+            </div>
         </div>
-        <div class="feature-card">
-            <img src="https://i.imgur.com/JbOrirb.png" alt="Step 2" style="width: 50%;">
-            <h4 id="feature2-title">Conversione Fiat</h4>
-            <p id="feature2-desc">Noi gestiamo la conversione e inviamo il bonifico direttamente al destinatario.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://i.imgur.com/vceCurS.png" alt="Step 3" style="width: 50%;">
-            <h4 id="feature3-title">Trasparenza Totale</h4>
-            <p id="feature3-desc">Operazioni rapide e tracciabili con una commissione trasparente.</p>
-        </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Roadmap Section -->
     <section class="roadmap">
         <h3 id="roadmap-title">La Nostra Roadmap</h3>
         <div class="roadmap-content">
-            <img src="https://i.imgur.com/SuuurRb.png" alt="Roadmap" id="roadmap-img" style="width: 30%;">
+            <img src="https://i.imgur.com/SuuurRb.png" alt="Roadmap" id="roadmap-img">
             <p id="roadmap-desc">Dai un'occhiata alle tappe principali che ci guideranno nel diventare la piattaforma di riferimento per il cambio cripto-fiat.</p>
         </div>
     </section>
-    
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 TransFi - All rights reserved</p>
+        <p>© 2024 PayFlex - All rights reserved</p>
     </footer>
 
     <script>
@@ -172,7 +219,7 @@
                 document.getElementById("feature1-desc").textContent = "Trasferisci le tue criptovalute al nostro servizio con la massima sicurezza.";
                 document.getElementById("feature2-title").textContent = "Conversione Fiat";
                 document.getElementById("feature2-desc").textContent = "Noi gestiamo la conversione e inviamo il bonifico direttamente al destinatario.";
-                document.getElementById("feature3-title").textContent = "Trasparenza Totale";
+                document.getElementById("feature3-title").                document.getElementById("feature3-title").textContent = "Trasparenza Totale";
                 document.getElementById("feature3-desc").textContent = "Operazioni rapide e tracciabili con una commissione trasparente.";
                 document.getElementById("roadmap-title").textContent = "La Nostra Roadmap";
                 document.getElementById("roadmap-desc").textContent = "Dai un'occhiata alle tappe principali che ci guideranno nel diventare la piattaforma di riferimento per il cambio cripto-fiat.";
@@ -190,11 +237,10 @@
                 document.getElementById("roadmap-desc").textContent = "Take a look at the main milestones that will guide us to becoming the leading crypto-fiat exchange platform.";
             }
         }
+        
         // Smooth Scroll
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 
-</body>
-</html>
